@@ -78,4 +78,10 @@ const start = async () => {
   }
 };
 
+import cors from 'cors';
+app.use(cors({
+  origin: ['https://job-tracker-21w8.vercel.app/'], // ✅ replace with actual frontend URL
+  credentials: true, // ✅ required for cookies
+}));
+
 start();

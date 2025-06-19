@@ -10,7 +10,6 @@
     "install-client": "cd client && npm install",
     "build-client": "cd client && npm run build",
     "server": "nodemon server --ignore client",
-   
     "start": "node server.js"
   },
   "keywords": [],
