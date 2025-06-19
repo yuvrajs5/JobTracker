@@ -135,29 +135,32 @@ export default function AppProvider(props) {
     clearAlert();
   };
 
-  const loginUser = async (currentUser) => {
-    dispatch({ type: LOGIN_USER_BEGIN });
-    try{
-      const { data } = await axios.post(
-        '/api/v1/auth/login',
-        currentUser
-      );
+ const loginUser = async (currentUser) => {
+  dispatch({ type: LOGIN_USER_BEGIN });
 
-      const { user, location } = data;
+  try {
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_API_URL}/api/v1/auth/login`,
+      currentUser,
+      { withCredentials: true }
+    );
 
-      dispatch({
-        type: LOGIN_USER_SUCCESS,
-        payload: { user, location },
-      });
+    const { user, location } = data;
 
-    } catch(error){
-      dispatch( {
-        type: LOGIN_USER_ERROR,
-        payload: { msg: error.response.data.msg },
-      })
-    }
-    clearAlert();
-  };
+    dispatch({
+      type: LOGIN_USER_SUCCESS,
+      payload: { user, location },
+    });
+  } catch (error) {
+    dispatch({
+      type: LOGIN_USER_ERROR,
+      payload: { msg: error.response?.data?.msg || 'Login failed' },
+    });
+  }
+
+  clearAlert();
+};
+
 
   const logoutUser = async () => {
     await authFetch.get('/auth/logout');
