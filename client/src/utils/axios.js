@@ -1,12 +1,8 @@
 import axios from 'axios';
 
-const API_BASE_URL =
-  process.env.NODE_ENV === 'production'
-    ? 'https://jobtracker-qpij.onrender.com/api/v1'
-    : 'http://localhost:4000/api/v1';
 
 const customFetch = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL:ProcessingInstruction.env.REACT_APP_API_URL,
   withCredentials: true, // If using cookies/session
 });
 
